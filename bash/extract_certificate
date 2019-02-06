@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+# ------------------------------------------------------------------------------
+# https://www.tldp.org/LDP/abs/html/string-manipulation.html
+# ------------------------------------------------------------------------------
+# ${string%substring}
+  # Deletes shortest match of $substring from back of $string
+  # i.e. ${string%.*}
+    # Order of operations - %, *, .
+      # 1) % - goes to the end of the string
+      # 2) * - matches/deletes everything from right to left
+      # 3) . - up until the shortest match of a period
+
+# ${string%%substring}
+  # Deletes longest match of $substring from back of $string.
+
+      # example_string=www.google.com
+      # echo ${example_string%.*}
+      #  www.google
+      # echo ${example_string%%.*}
+      #  www
+# ------------------------------------------------------------------------------
+# ${string#substring}
+  # Deletes shortest match of $substring from front of $string
+  # i.e. ${string#*.}
+    # Order of operations - #, *, .
+      # 1) # - goes to the beginning of the string
+      # 2) * - matches/deletes everything from left to right
+      # 3) . - up until the shortest match of a period
+
+# ${string##substring}
+  # Deletes longest match of $substring from front of $string
+
+      # example_string=www.google.com
+      # echo ${example_string#*.}
+      #  google.com
+      # echo ${example_string##*.}
+      #  com
+# ------------------------------------------------------------------------------
+
+set -o errexit  # exit when command fails; add || true to allow commands to fail
+set -o nounset  # exit when script uses undeclared variables
+
+: "${1?usage: $0 in_pfx_filename}"  # check if $1 exists
+
+extract_certificate() {
+  openssl pkcs12 -in "${1}" -nocerts -nodes | sed -ne '/-BEGIN PRIVATE KEY-/,/-END PRIVATE KEY-/p' > "${1%.*}.key"
+  openssl pkcs12 -in "${1}" -clcerts -nokeys | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "${1%.*}.crt"
+  #  openssl pkcs12 -in "${1}" -cacerts -nokeys -chain | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "${1%.*}.ca.crt"
+}
+
+extract_certificate "$@"
