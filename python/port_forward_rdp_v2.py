@@ -8,6 +8,7 @@ import logging
 import random
 import boto3
 import rsa
+import yaml
 
 
 class DecryptEC2():
@@ -93,11 +94,12 @@ def main():
     logging.basicConfig(
         format='%(levelname)s:%(message)s', level=logging.WARNING)
 
+    with open("config.yaml") as yamlfile:  # https://yaml.org/faq.html
+        config_options = yaml.load(yamlfile)
+
     input_instance_id = input("Instance ID [none]: ") or "none"
-    input_bastion_ip = input("Bastion IP [none]: ") or "none"
-    input_private_key = os.path.expanduser(
-        input("Private Key [~/.ssh/id_rsa]: ")
-    ) or f"{os.environ['HOME']}/.ssh/id_rsa"
+    input_bastion_ip = config_options["bastion_ip"]
+    input_private_key = os.path.expanduser(config_options["private_key"])
 
     instance_password = DecryptEC2(input_instance_id, input_private_key)
     print(

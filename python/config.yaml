@@ -1,0 +1,3 @@
+---
+bastion_ip: <public_ip_address_of_bastion_host>  # 52.99.99.91
+private_key: <location_of_private_ssh_keypair>  # ~/.ssh/id_rsa
