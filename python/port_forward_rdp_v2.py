@@ -9,16 +9,86 @@ import random
 import boto3
 import rsa
 import yaml
+from botocore.exceptions import ClientError
 
 
-class DecryptEC2():
+class ValidateEC2():
+    """Do stuff."""
+
+    def __init__(self, instance_id):
+        """Do stuff."""
+        self.client = boto3.client("ec2")
+        self._instance_id = instance_id
+
+    def __repr__(self):
+        """Do stuff."""
+        return f"ValidateEC2('{self.instance_id}')"
+
+    def __str__(self):
+        """Do stuff."""
+        return f"Instance ID: {self.instance_id}"
+
+    @property
+    def instance_id(self):
+        """Do stuff."""
+        return self._instance_id
+
+    @instance_id.setter
+    def instance_id(self, value):
+        """Do stuff."""
+        try:
+            self.client.describe_instances(InstanceIds=[value])
+            self._instance_id = value
+        except ClientError as error_message:
+            print(error_message)
+
+        return self._instance_id
+
+    def extra_method(self):
+        """Do stuff."""
+
+
+class DecryptEC2(ValidateEC2):
     """Do stuff."""
 
     def __init__(self, instance_id, private_key):
         """Do stuff."""
-        self.client = boto3.client('ec2')
-        self.instance_id = instance_id
+        super().__init__(instance_id)
+        self.client = boto3.client("ec2")
+        self._instance_id = instance_id
         self.private_key = private_key
+
+    def __repr__(self):
+        """Do stuff."""
+        return (
+            f"DecryptEC2(instance_id='{self._instance_id}', "
+            f"private_key='{self.private_key}')"
+        )
+
+    def __str__(self):
+        """Do stuff."""
+        return (
+            f"Instance ID: {self._instance_id}\n"
+            f"Private Key: {self.private_key}"
+        )
+
+    @property
+    def instance_id(self):
+        """Do stuff."""
+        # GitHub Issue - https://github.com/PyCQA/pylint/issues/2641
+        # pylint: [no-member] Method 'instance_id' has no 'fget' member [E1101]
+        # return ValidateEC2.instance_id.fget(self)
+        # Solution - https://stackoverflow.com/questions/1021464/how-to-call-a-property-of-the-base-class-if-this-property-is-being-overwritten-i
+        return super().instance_id
+
+    @instance_id.setter
+    def instance_id(self, value):
+        """Do stuff."""
+        # GitHub Issue - https://github.com/PyCQA/pylint/issues/2641
+        # pylint: [no-member] Method 'instance_id' has no 'fset' member [E1101]
+        # return ValidateEC2.instance_id.fset(self, value)
+        # Solution - https://stackoverflow.com/questions/1021464/how-to-call-a-property-of-the-base-class-if-this-property-is-being-overwritten-i
+        super(DecryptEC2, self.__class__).instance_id.fset(self, value)
 
     def decrypt_password(self):
         """Do stuff."""
@@ -42,14 +112,15 @@ class DecryptEC2():
         """Do stuff."""
 
 
-class PortForward():
+class PortForward(ValidateEC2):
     """Do stuff."""
 
     def __init__(self, instance_id, bastion_ip, private_key,
                  decrypted_password):
         """Do things."""
+        super().__init__(instance_id)
         self.client = boto3.client('ec2')
-        self.instance_id = instance_id
+        self._instance_id = instance_id
         self.bastion_ip = bastion_ip
         self.private_key = private_key
         self.decrypted_password = decrypted_password
@@ -58,12 +129,30 @@ class PortForward():
         self.private_ip = instance_response['Reservations'][0]['Instances'][0][
             'PrivateIpAddress']
 
+    @property
+    def instance_id(self):
+        """Do stuff."""
+        # GitHub Issue - https://github.com/PyCQA/pylint/issues/2641
+        # pylint: [no-member] Method 'instance_id' has no 'fget' member [E1101]
+        # return ValidateEC2.instance_id.fset(self, value)
+        # Solution - https://stackoverflow.com/questions/1021464/how-to-call-a-property-of-the-base-class-if-this-property-is-being-overwritten-i
+        return super().instance_id
+
+    @instance_id.setter
+    def instance_id(self, value):
+        """Do stuff."""
+        # GitHub Issue - https://github.com/PyCQA/pylint/issues/2641
+        # pylint: [no-member] Method 'instance_id' has no 'fset' member [E1101]
+        # return ValidateEC2.instance_id.fset(self, value)
+        # Solution - https://stackoverflow.com/questions/1021464/how-to-call-a-property-of-the-base-class-if-this-property-is-being-overwritten-i
+        return super(PortForward, self.__class__).instance_id.fset(self, value)
+
     def __repr__(self):
         """Do things."""
-        return (f"PortForward(instance_id={self.instance_id}, "
-                f"bastion_ip={self.bastion_ip}, "
-                f"private_key={self.private_key}, "
-                f"decrypted_password={self.decrypted_password}")
+        return (f"PortForward(instance_id='{self.instance_id}', "
+                f"bastion_ip='{self.bastion_ip}', "
+                f"private_key='{self.private_key}', "
+                f"decrypted_password='{self.decrypted_password}'")
 
     def __str__(self):
         """Do things."""
