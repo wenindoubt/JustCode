@@ -1,0 +1,26 @@
+<p><code>$0.getAttribute("value")</code> retrieves the initial value that HTML sets.</p>
+<p><code>$0.value</code> is the preferred method if we want the DOM to retrieve the value
+  even after it changes</p>
+<form>
+  Basic  <b>enabled</b> text box:<br>
+  <input type="text" value="default-value"><br>
+  Property Binding <b>enabled</b> text box:<br>
+  <input [disabled]="isDisabled" type="text" value="default-value"><br><br>
+  Basic <b>disabled</b> text box:<br>
+  <input disabled name="disabled-text-box" type="text" value="disabled-value"><br>
+  (Option 1) Property Binding <b>disabled</b> text box:<br>
+  <input [disabled]="isDisabled" name="disabled-text-box" type="text" value="disabled-value"><br>
+  (Option 2) Property Binding <b>disabled</b> text box:<br>
+  <input bind-disabled="isDisabled" name="disabled-text-box" type="text" value="disabled-value"><br>
+
+</form>
+
+
+<h2>Welcome {{name}}!</h2>
+<h2>{{"Welcome " + name + "!"}}</h2>
+<h2>{{2+2}}</h2>
+<h2>{{"The length of your name, " + name + ", is " + name.length}}</h2>
+<h2>{{"Your name, " + name + ", in all uppercase is " + name.toUpperCase()}}</h2>
+<h2>{{"I am calling a custom method to greet you: " + greetUser()}}</h2>
+<h2>{{"The current URL is: " + currentUrl}}</h2>
+<h2>{{greetUserWithDob()}}</h2>
