@@ -50,4 +50,8 @@ export class JwenTestComponent implements OnInit {
     console.log(value);
   }
 
+  toggleButton(event) {
+    console.log(event);
+  }
+
 }

@@ -1,3 +1,47 @@
+<p *ngIf="toggleSentence; else falseSentence">This is the sentence that shows up when I am TRUE</p>
+<ng-template #falseSentence>
+  <p>This is the sentence that shows up when I am FALSE</p>
+</ng-template>
+
+<hr>
+
+Username Input: <input [(ngModel)]="usernameInput" type="text">
+<p [ngStyle]="multipleStyles">{{usernameInput}}</p>
+Some Other Input: <input [(ngModel)]="someOtherInput" type="text">
+<p [style.color]="hasError ? 'red' : 'green'">{{someOtherInput}}</p>
+
+<hr>
+
+<input #customInput type="text">
+<button (click)="submitText(customInput)">Submit</button>
+
+<hr>
+
+<button (click)="myClick($event)">Greetings</button>
+<p [class]="successClass">{{greetingMessage}}<p>
+
+<hr>
+
+<p [style.color]="'green'">This is a sentence with style binding</p>
+<p [style.color]="hasError ? 'red' : 'green'">This is a sentence with a
+conditional style binding</p>
+<p [ngStyle]="multipleStyles">This is a sentence that uses the ngStyle directive
+  to allow multiple styles to be applied"</p>
+
+<hr>
+
+<p class="text-success">This is a success sentence with a basic css class</p>
+<p [class]="successClass">This is a success sentence using a class binding</p>
+<p class="text-special" [class]="successClass">This is a sentence using a basic
+  css class (.text-special) and a class binding (.text-success). The class
+  binding takes precedence.</p>
+<p [class.text-danger]="hasError">This sentence contains a conditional class
+  that will only get applied if the expression is true</p>
+<p [ngClass]="messageClasses">This is a sentence uses the ngClass directive that
+  allows multiple classes to be applied to it</p>
+
+<hr>
+
 <p><code>$0.getAttribute("value")</code> retrieves the initial value that HTML sets.</p>
 <p><code>$0.value</code> is the preferred method if we want the DOM to retrieve the value
   even after it changes</p>
@@ -12,9 +56,9 @@
   <input [disabled]="isDisabled" name="disabled-text-box" type="text" value="disabled-value"><br>
   (Option 2) Property Binding <b>disabled</b> text box:<br>
   <input bind-disabled="isDisabled" name="disabled-text-box" type="text" value="disabled-value"><br>
-
 </form>
 
+<hr>
 
 <h2>Welcome {{name}}!</h2>
 <h2>{{"Welcome " + name + "!"}}</h2>
