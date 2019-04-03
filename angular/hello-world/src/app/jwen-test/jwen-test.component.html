@@ -1,3 +1,31 @@
+<div *ngFor="let color of colors; index as i; first as f; odd as o; even as e; last as l">
+  <p>first: {{f}} | odd: {{o}} | even: {{e}} | {{i}} {{color}} | last: {{l}}</p>
+</div>
+
+<hr>
+
+<div [ngSwitch]="selectColor">
+  <p [style.color]="purpleColor" *ngSwitchCase="'purple'">You selected the purple color</p>
+  <p [style.color]="blueColor" *ngSwitchCase="'blue'">You selected the blue color</p>
+  <p [style.color]="greenColor" *ngSwitchCase="'green'">You selected the green
+    color</p>
+  <p [ngStyle]="warningMessage" *ngSwitchDefault>You did not select the right color. Select again.</p>
+</div>
+
+<hr>
+
+<p *ngIf="displayName; then thenBlock; else elseBlock"></p>
+
+<ng-template #thenBlock>
+  <p>Jeffrey Wen</p>
+</ng-template>
+
+<ng-template #elseBlock>
+  <p>Hidden Name</p>
+</ng-template>
+
+<hr>
+
 <p *ngIf="toggleSentence; else falseSentence">This is the sentence that shows up when I am TRUE</p>
 <ng-template #falseSentence>
   <p>This is the sentence that shows up when I am FALSE</p>

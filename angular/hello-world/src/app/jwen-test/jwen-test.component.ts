@@ -17,6 +17,17 @@ export class JwenTestComponent implements OnInit {
   public usernameInput = '';
   public someOtherInput = '';
   public toggleSentence = true;
+  public displayName = true;
+  public selectColor = 'green';
+  public purpleColor = '#8A2BE2';
+  public blueColor = 'blue';
+  public greenColor = 'green';
+  public colors = ['red', 'green', 'blue', 'yellow'];
+
+  public warningMessage = {
+    color: 'red',
+    fontStyle: 'bold'
+  };
 
   public messageClasses = {
     'text-success': !this.hasError,
@@ -27,6 +38,7 @@ export class JwenTestComponent implements OnInit {
     color: 'blue',
     fontStyle: 'italic'
   };
+
 
   constructor() { }
 
