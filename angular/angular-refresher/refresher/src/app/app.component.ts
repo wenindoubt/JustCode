@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PersonsComponent } from './persons/persons.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   persons: string[] = ['Jack', 'Anna', 'George'];
+  onCreatedPerson(name: string) {
+    this.persons.push(name);
+  }
 }
