@@ -7,8 +7,4 @@ import { PersonsComponent } from './persons/persons.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  persons: string[] = ['Jack', 'Anna', 'George'];
-  onCreatedPerson(name: string) {
-    this.persons.push(name);
-  }
 }
