@@ -7,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonInputComponent implements OnInit {
 
-  onCreatePerson(personName: string) {
-    console.log('Created a person: ' + personName);
+  enteredPersonName = '';
+
+  onCreatePerson() {
+    console.log('Created a person: ' + this.enteredPersonName);
+    this.enteredPersonName = '';
   }
 
   constructor() { }
