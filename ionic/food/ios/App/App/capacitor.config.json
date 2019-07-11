@@ -1,0 +1,7 @@
+{
+  "appId": "com.food.jwen",
+  "appName": "food",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}

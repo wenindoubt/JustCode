@@ -1,5 +1,7 @@
 {
   "name": "food",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
